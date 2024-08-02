@@ -1,0 +1,11 @@
+-- Integrated pages (Vue.JS Frontend with the Flask Backend):
+- Settings
+- Train
+- Classes
+- Dataset
+- Models
+
+-- Unintegrated pages
+- Detection
+- Notifications
+- Users
