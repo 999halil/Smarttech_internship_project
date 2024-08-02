@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="container">
+      <h1>Welcome!</h1>
+      <br>
+      <p>You are now logged in.</p><br>
+      <br>
+      <form action="{{ url_for('logout') }}" method="get">
+        <button type="submit">Logout</button>
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>

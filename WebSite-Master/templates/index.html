@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Annotation Tool</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Image Annotation Tool</h1>
+    <div class="upload-form">
+        <h2>Upload an Image</h2>
+        <form action="{{ url_for('annotate') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <div class="image-list">
+        <h2>Uploaded Images</h2>
+        {% for filename in filenames %}
+            <div class="image-preview">
+                <a href="{{ url_for('annotate', filename=filename) }}"><img src="{{ url_for('uploaded_images', filename=filename) }}"></a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

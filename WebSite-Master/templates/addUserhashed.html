@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Training</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+ 
+    .centered-heading {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: inline-block;
+}
+.containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+</style>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="containermain">
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}    
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    
+{% endfor %}
+
+<div class="containermain">
+{% if name %}
+    <h2 class="centered-heading"> User {{ name }} added !!</h2> 
+{% else %}    
+    <h2 class="centered-heading">Add User</h2>
+    <br/>
+    <div class="container" style=" width: 90%;">
+        <form method="POST">
+        {{ form.hidden_tag() }}
+
+        
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+        <br/>
+        
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-control") }}
+        <br/>
+
+        {{ form.password_hashed.label(class="form-label") }}
+        {{ form.password_hashed(class="form-control") }}
+        <br/>
+        {{ form.passwordh.label(class="form-label") }}
+        {{ form.passwordh(class="form-control") }}
+        <br/>
+
+        {% for subfield in form.role %}
+        <tr>
+            <td>{{ subfield }}</td>
+            <td>{{ subfield.label }}</td>
+        </tr>
+        {% endfor %}
+
+        
+        {{ form.submit() }}
+    </form>
+</div>
+
+{% endif %} 
+</div></div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DataSet</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+
+        .container {
+            text-align: center;
+            align-items: center;
+            margin-bottom: 2%;
+        }
+        .containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+      .centered-heading {
+          margin-top: 2%;
+          margin-bottom: 2%;
+        margin-right: 10%;
+          display: inline-block;
+      }
+
+        .image-row {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 2%;
+        }
+        .image {
+          max-height: 12%;
+          cursor: pointer;
+          transition: max-height 0.3s;
+        }      
+        .image-row img {
+            background-color: black;
+            max-width: 11.5%;
+            height: auto;
+            margin-right: 0.5%;
+            
+            margin-left: 0.5%;
+        }
+        
+        @media (max-width: 600px) {
+            .image-row {
+                flex-wrap: wrap;
+            }
+            
+
+            
+        }
+        
+        p.no-images {
+            text-align: center;
+        }
+    </style>
+
+  </head>
+  {% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+
+    <br>
+    <div class="containermain">
+    <h2 class="centered-heading">DataSet</h2>
+    <form action="{{ url_for('delete_dataset_images') }}" method="POST">
+        
+        <button type="submit">Delete Dataset</button>
+    </form>
+    <button type="submit" onclick="redirectToPage()">Upload to Dataset</button>
+
+    <script>
+      function redirectToPage() {
+        window.location.href = "uploadmulti";
+      }
+    </script>
+<div class="container">
+    {% if image_urls %}
+        {% for row in range(0, image_urls|length, 8) %}
+        <div class="image-row">
+            {% for image in image_urls[row:row+8] %}
+            <img src="{{ image }}" alt="Image" >
+            {% endfor %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-images">No images found ..</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+</div>

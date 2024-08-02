@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings</title>
+    <style>
+      .containermain {
+        text-align: center;
+        align-items: center;
+        margin-bottom: 2%;
+      }
+      .centered-heading {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        margin-right: 10%;
+        display: inline-block;
+      }
+
+      .container {
+    width: 40%;
+    margin: auto;
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+  }
+      .container {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2%;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="containermain">
+    <h2 class="centered-heading">Settings</h2>
+
+    
+        <form action="{{ url_for('settings') }}" method="POST">
+        {% for model in models %}
+              <div class="container">
+                <input type="radio" id="{{ model.id }}" name="model" value="{{ model.folder_name }}">
+                <label for="{{ model.id }}">
+                  <div class="text">
+                    <p>epochs : {{ model.epochs }}    Precision : {{ model.precision }}</p>
+                    <p>Trained at {{ model.created_at }}</p>
+                    <p>Model trained on : {{ model.classes_detected }}</p>
+                  </div>
+                </label>
+              </div>
+          
+        {% endfor %}
+        
+    
+    <input type="submit" value="Submit">
+  </form>
+    {% endblock %}
+
+  </body>
+</html>

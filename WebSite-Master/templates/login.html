@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+ 
+    .centered-heading {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display: inline-block;
+}
+.containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+</style>
+</head>
+<body>
+  {% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}    
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    
+{% endfor %}
+
+<div class="containermain">
+  <br/>
+  <br/>
+  <br/>
+  <h2 class="centered-heading">Login</h2>
+  <br/>
+  <div class="container" style=" width: 50%;">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-control") }}
+        <br/>
+        
+        {{ form.password_hashed.label(class="form-label") }}
+        {{ form.password_hashed(class="form-control") }}
+        <br/>
+        
+        {{ form.submit(class="btn btn-secondary") }}
+    </form>
+  </div></div>
+{% endblock %}</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Training</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+              .containermain {
+        text-align: center;
+        align-items: center;
+        margin-bottom: 2%;
+      }
+      .centered-heading {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        margin-right: 10%;
+        display: inline-block;
+      }
+    </style>
+      </head>
+      <body>
+      {% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}    
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    
+{% endfor %}
+
+<div class="containermain">
+    
+<h2 class="centered-heading">Training Form</h2>
+    <br/>
+    <div class="container" style="display: flex;">
+        <div class="left-div" style="width: 52%;">
+          <!-- Content for the left div -->
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+        
+                {{ form.epochs.label(class="form-label") }}
+                {{ form.epochs(class="form-control", value=100) }}
+                <br/>
+        
+                {{ form.batch_size.label(class="form-label") }}
+                {{ form.batch_size(class="form-control", value=16) }}
+                <br/>
+                
+                {{ form.patience.label(class="form-label") }}
+                {{ form.patience(class="form-control", value=50) }}
+                <br/>
+
+                {{ form.learning_rate.label(class="form-label") }}
+                {{ form.learning_rate(class="form-control", value=0.01) }}
+                <br/>
+        
+                {{ form.submit() }}
+            </form>
+        </div>
+        <div class="middle-div" style="width: 5%;">
+            <!-- Content for the right div -->
+        </div>
+        <div class="right-div" style="width: 45%;">
+            <!-- Content for the right div -->
+            <p >The epochs number is the number of itterations the Training is going to take. Its value mainly depends on the machine provided to run the training.</p>
+            
+            <p>The patience value depends on the epochs value. It indicates how many itterations of no progress before stopping the training.</p>
+            <p>It is not recomended to change the last 2 values if the user is a beginner.</p>
+            <br>
+            <p>The default values for the training should be :</p>
+             <p>Epochs = 100</p>
+             <p>Batch size = 16</p>
+             <p>Patience = 100</p>
+             <p>Final learning rate = 0.01</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!-- image.html -->
+...
+{% if image.annotation %}
+<canvas id="canvas"></canvas>
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var img = new Image();
+img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    var annotation = "{{ image.annotation }}";
+    var boxes = annotation.split(';\\n');
+    for (var i = 0; i < boxes.length; i++) {
+        var box = boxes[i].split(' ');
+        var x_center = parseFloat(box[0]) * canvas.width;
+        var y_center = parseFloat(box[1]) * canvas.height;
+        var width = parseFloat(box[2]) * canvas.width;
+        var height = parseFloat(box[3]) * canvas.height;
+        var x = x_center - width / 2;
+        var y = y_center - height / 2;
+        ctx.beginPath();
+        ctx.rect(x, y, width, height);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+}
+img.src = "{{ url_for('static', filename='images/' + image.filename) }}";
+</script>
+{% endif %}

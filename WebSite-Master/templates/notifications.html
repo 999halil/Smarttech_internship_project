@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notifications</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+      .containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+      .centered-heading {
+          margin-top: 2%;
+          margin-bottom: 2%;
+        margin-right: 10%;
+          display: inline-block;
+      }
+      .container {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin-bottom: 2%;
+      }
+      .text {
+          flex-grow: 1;
+      }
+      .image {
+          max-height: 100px;
+          cursor: pointer;
+          transition: max-height 0.3s;
+      }
+      .image.expanded {
+          max-height: none;
+      }
+  </style>
+  <script>
+      function expandImage(image) {
+          image.classList.toggle('expanded');
+      }
+  </script>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    {% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}    
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    
+{% endfor %}
+    <div class="containermain">
+      <h2 class="centered-heading">Notification List</h2>
+ 
+        {% for notif in notifications %}
+        <div class="container">
+          <div class="text">
+              <p>{{ notif.timestamp }}</p>
+              <p>{{ notif.message }}</p>
+              <div>
+                <form action="{{ url_for('addtoDataset_notificationFP', notification_id=notif.id) }}" method="post" onsubmit="return confirm('Are you sure you want to add this image as a no detection ?');"style="margin-bottom: 0.5%;">
+                  <button type="submit">False Detection</button>
+                </form>
+                <form action="{{ url_for('addtoDataset_notification', notification_id=notif.id) }}" method="post" onsubmit="return confirm('Are you sure you want to add this image to the dataset ?');"style="margin-bottom: 0.5%;">
+                  <button type="submit">Valid Detection</button>
+                </form>         
+            
+                <form action="{{ url_for('delete_notification', notification_id=notif.id) }}" method="post" onsubmit="return confirm('Are you sure you want to Ignore the notification ?');">
+                  <button type="submit">Ignore</button>
+                </form>
+                <form action="{{ url_for('download_notif', notification_id=notif.id) }}" method="post" onsubmit="return confirm('Are you sure you want to download the image ?');">
+                  <button type="submit">Download</button>
+                </form>
+              </div>
+          </div>
+          <img src="{{ notif.frame }}" class="image" onclick="expandImage(this)">
+        </div>
+        {% endfor %}
+      </div>
+  {% endblock %}
+
+</body>
+</html>

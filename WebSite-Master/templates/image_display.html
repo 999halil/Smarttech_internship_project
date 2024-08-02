@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Images</h1>
+  <div class="image-grid">
+    {% for image in images %}
+      <div class="image-item">
+        <img src="{{ url_for('static', filename=image.filename) }}" alt="Image {{ image.id }}">
+        <button class="modify-annotation-button" data-image-id="{{ image.id }}">Modify Annotation</button>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    const modifyAnnotationButtons = document.querySelectorAll('.modify-annotation-button');
+    modifyAnnotationButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const imageId = button.dataset.imageId;
+        const url = '{{ url_for("modify_annotation", image_id="__IMAGE_ID__") }}'.replace('__IMAGE_ID__', imageId);
+        window.open(url, '_blank', 'width=800,height=600');
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+      .containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+      .centered-heading {
+          margin-top: 2%;
+          margin-bottom: 2%;
+        margin-right: 10%;
+          display: inline-block;
+      }
+      .container {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin-bottom: 2%;
+      }
+      .text {
+          flex-grow: 1;
+      }
+    </style>
+    </head>
+    <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="containermain">
+      <h2 class="centered-heading">Class List</h2>
+      
+      {% for class in classes %}
+        <div class="container">
+          <div class="text">
+            <p> Class's id_class : {{ class.id_class }} </p>
+            <p> Class's name : {{ class.name }} </p>
+          </div>
+            <div>
+              <form action="{{ url_for('delete_class', class_idd=class.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete the class : {{ class.name }}?');">
+                  <button type="submit">Delete class</button>
+              </form>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+  {% endblock %}
+</body>
+</html>
+
+
+
+
+
+</body>
+</html>

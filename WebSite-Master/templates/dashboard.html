@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+		<style>
+			      .containermain {
+        text-align: center;
+          align-items: center;
+          margin-bottom: 2%;
+      }
+			      .centered-heading {
+          margin-top: 2%;
+          margin-bottom: 2%;
+          display: inline-block;
+        margin-right: 10%;
+      }
+        #video-container {
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%; /* add 10% padding on both sides */
+        }
+
+        .video-wrapper {
+            
+            position: relative;
+            width: 50%;
+			
+            height: auto; /* adjust the width of each video wrapper */
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 5% 5%; /* add 5% margin on all sides */
+        }
+
+        .video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        .title-overlay {
+            position: absolute;
+            top: 0%; /* adjust the top position of the overlay */
+            left: 0%; /* adjust the left position of the overlay */
+            color: white;
+            font-size: 2vw; /* adjust the font size based on viewport width */
+            background-color: rgba(0, 0, 0, 0.5); /* adjust the background color and transparency */
+            padding: 1% 2%; /* adjust the padding based on percentages */
+        }
+		</style>
+	</head>
+	<body>
+	{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	
+{% endfor %}
+
+
+<div class="containermain">
+
+	<h2 class="centered-heading" >Detection</h2>
+	<br/>
+    <div id="video-container">
+        <div class="video-wrapper">
+            <img class="video" src="{{ url_for('webcam') }}" alt="Upload video">
+            <div class="title-overlay">Camera 1</div>
+        </div>
+        <div class="video-wrapper">
+            <img class="video" src="{{ url_for('webcam') }}" alt="Upload video">
+            <div class="title-overlay">Camera 2</div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+</body>
+</html>

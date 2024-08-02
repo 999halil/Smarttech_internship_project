@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Models</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+      .containermain {
+        text-align: center;
+        align-items: center;
+        margin-bottom: 2%;
+      }
+      .centered-heading {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        display: inline-block;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2%;
+      }
+      .text {
+        flex-grow: 1;
+      }
+      .image {
+        margin-right: 1%;
+        max-height: 130px;
+        cursor: pointer;
+        transition: max-height 0.3s;
+      }
+      .image.expanded {
+        max-height: 200px;
+      }
+    </style>
+
+    <script>
+      function expandImage(image) {
+        image.classList.toggle('expanded');
+      }
+    </script>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="containermain">
+      <h2 class="centered-heading">Model List</h2>
+
+      {% for model in models %}
+      <div class="container">
+        <div class="text">
+          <p>epochs : {{ model.epochs }}</p>
+          <p>patience : {{ model.patience }}</p>
+          <p>batch_size : {{ model.batch_size }}</p>
+          <p>learning_rate : {{ model.learning_rate }}</p>
+          
+        </div>
+        <div class="text">
+          <p>Trained at {{ model.created_at }}</p>
+          <p>Precision = {{ model.precision }}</p>
+          <p>Model trained on : {{ model.classes_detected }}</p>
+          {% if model.selected == "True" %}
+          <p><strong>This model is currently selected</strong></p>
+          {% endif %}
+        </div>
+        <img src="{{ model.folder_name }}/results.png" class="image" onclick="expandImage(this)">
+      </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
+
+  </body>
+</html>
