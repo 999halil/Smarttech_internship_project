@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  nav {
+    background-color: #f1f1f1;
+    padding: 20px;
+    width: 20%;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+  }
+  
+  main {
+    padding: 20px;
+    width: 80%;
+  }
+  
+  body {
+    background-color: #f8f8f8;
+  }
